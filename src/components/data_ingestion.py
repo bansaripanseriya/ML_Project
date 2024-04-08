@@ -7,6 +7,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+from src.components.data_transformation import DataTransformation, DataTransformationConfig
+
 @dataclass
 class DataIngestionConfig:
     ## THESE ARE THE PATH WHERE DATA WILL BE STORED DURING DATA INGESTION
@@ -22,7 +24,7 @@ class DataIngestion:
         logging.info("Entered the data ingestion method or component")
         try:
             ## HERE WE CAN READ DATA FROM ANYWHERE LIKE FROM THE CSV FILE, DATABASE, API,...
-            df=pd.read_csv('notebook\data\stud.csv')
+            df=pd.read_csv('notebook/data/stud.csv')
             logging.info('Read the dataset as dataframe')
 
             ## THIS IS USE TO CREATE FOLDER FOR DATA(ABOVE PATH IS GIVEN)
@@ -50,3 +52,6 @@ class DataIngestion:
 if __name__=="__main__":
     obj=DataIngestion()
     train_data,test_data=obj.initiate_data_ingestion()
+    
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
